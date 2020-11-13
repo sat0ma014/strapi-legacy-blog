@@ -1,5 +1,6 @@
 {
   "connection": "default",
+  "kind": "collectionType",
   "collectionName": "articles",
   "info": {
     "name": "article"
@@ -13,27 +14,50 @@
       "type": "string",
       "required": true
     },
+    "description": {
+      "type": "text",
+      "required": true
+    },
     "content": {
       "type": "richtext",
       "required": true
     },
-    "image": {
-      "model": "file",
-      "via": "related",
-      "plugin": "upload",
+    "publishedAt": {
+      "type": "datetime",
       "required": true
     },
-    "published_at": {
-      "type": "date",
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "draft",
+        "published"
+      ],
+      "required": true,
+      "default": "draft"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
       "required": true
     },
     "category": {
       "model": "category",
       "via": "articles"
     },
-    "slug": {
-      "type": "uid",
-      "targetField": "title"
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": true
+    },
+    "author": {
+      "via": "articles",
+      "model": "writer"
     }
   }
 }
